@@ -1,0 +1,1033 @@
+/* ==========================================================================
+   1. GLOBAL VARIANT ARCHITECTURE & VARIABLES
+   ========================================================================== */
+:root {
+    --primary: #ffb703;
+    --secondary: #023047;
+    --dark: #0f172a;
+    --light: #ffffff;
+    --gray: #f5f5f5;
+    --text: #333;
+    --transition: .4s ease;
+    --shadow: 0 10px 30px rgba(0, 0, 0, .1);
+}
+
+body.dark-mode {
+    --light: #0f172a;
+    --gray: #1e293b;
+    --text: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--light);
+    color: var(--text);
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* ==========================================================================
+   2. SITE CORE LAYOUT COMPONENTS (LOADER, NAVBAR, HERO)
+   ========================================================================== */
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 5px solid #ddd;
+    border-top: 5px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.navbar {
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    z-index: 1000;
+    background: rgba(2, 48, 71, .85);
+    backdrop-filter: blur(10px);
+}
+
+.logo {
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.logo i {
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: var(--primary);
+}
+
+.theme-toggle,
+.hamburger {
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.hamburger {
+    display: none;
+}
+
+.hero {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, .65), rgba(0, 0, 0, .65)), url("image/solar-hero.jpg");
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    padding: 100px 20px;
+}
+
+.hero-content {
+    max-width: 900px;
+    color: white;
+    z-index: 2;
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    margin-bottom: 35px;
+}
+
+.hero-buttons {
+    margin-bottom: 50px;
+}
+
+.btn,
+.btn-outline {
+    display: inline-block;
+    padding: 15px 35px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    margin: 10px;
+    transition: var(--transition);
+}
+
+.btn {
+    background: var(--primary);
+    color: black;
+}
+
+.btn:hover {
+    transform: translateY(-5px);
+}
+
+.btn-outline {
+    border: 2px solid white;
+    color: white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: black;
+}
+
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.hero-stats h2 {
+    color: var(--primary);
+    font-size: 2rem;
+}
+
+/* ==========================================================================
+   3. BASIC TYPOGRAPHY & GENERAL BLOCK ELEMENTS
+   ========================================================================== */
+section {
+    padding: 100px 8%;
+    width: 100%;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    color: var(--secondary);
+}
+
+.partners {
+    background: var(--gray);
+}
+
+.partner-logos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.partner-logos div {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    color: var(--secondary);
+}
+
+.about-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+
+.about-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.about-text h3 {
+    margin: 20px 0;
+    color: var(--secondary);
+}
+
+.features,
+.services-grid,
+.shop-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.feature-card,
+.service-card,
+.product-card {
+    background: white;
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.feature-card:hover,
+.service-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card i {
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 15px;
+}
+
+/* ==========================================================================
+   4. SYSTEM GALLERY HUB ARCHITECTURE
+   ========================================================================== */
+#gallery {
+    padding: 60px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.gallery-filter {
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background: transparent;
+    border: 2px solid #e0e0e0;
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #555;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(241, 184, 19, 0.3);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, opacity 0.4s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.gallery-item.hide {
+    transform: scale(0.8);
+    opacity: 0;
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   5. SHOP & PRODUCT CARDS
+   ========================================================================== */
+.search-bar {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 50px;
+    border: 1px solid #ddd;
+    outline: none;
+}
+
+.product-card button {
+    margin-top: 15px;
+    background: var(--primary);
+    border: none;
+    padding: 12px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.product-card button:hover {
+    background-color: #d9a30f;
+    transform: scale(1.03);
+}
+
+.product-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.testimonial {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+}
+
+/* ==========================================================================
+   6. CALCULATOR LAYOUT & INVOICE GRID SYSTEM (RESPONSIVE ALIGNED)
+   ========================================================================== */
+#calculator {
+    padding: 60px 8%;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+}
+
+.calculator-container {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    max-width: 700px;
+    width: 100%;
+}
+
+.calculator-container h2 {
+    text-align: center;
+    color: #0d2c47;
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.form-group input,
+.form-group select {
+    padding: 12px;
+    border: 1px solid #cccccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    background: transparent;
+    color: inherit;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #f1b813;
+}
+
+.form-divider {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 25px 0;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+#calculate-btn {
+    width: 100%;
+    background-color: #f1b813;
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 25px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: background 0.3s, transform 0.1s;
+}
+
+#calculate-btn:hover {
+    background-color: #d9a30f;
+}
+
+#calculate-btn:active {
+    transform: scale(0.99);
+}
+
+.result-box {
+    margin-top: 30px;
+    padding: 25px;
+    background-color: #eef5fa;
+    border-left: 5px solid #f1b813;
+    border-radius: 6px;
+    text-align: center;
+    transition: all 0.4s ease-in-out;
+}
+
+.result-box.hidden {
+    display: none;
+}
+
+.kw-display {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0d2c47;
+    margin: 10px 0;
+}
+
+.recommendation-text {
+    font-size: 0.95rem;
+    color: #555;
+    font-style: italic;
+}
+
+/* --- GLOBAL CORE INVOICE PREVIEW FRAMEWORK --- */
+.invoice-container {
+    margin-top: 25px;
+    text-align: left;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    width: 100%;
+}
+
+.invoice-container h4 {
+    color: #0d2c47;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    border-bottom: 2px solid #f1b813;
+    padding-bottom: 5px;
+}
+
+.invoice-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.invoice-table th,
+.invoice-table td {
+    padding: 12px 10px;
+    border-bottom: 1px solid #edf2f7;
+    text-align: left;
+}
+
+.invoice-table th {
+    background-color: #f7fafc;
+    color: #4a5568;
+    font-weight: 700;
+}
+
+.invoice-total-summary {
+    text-align: right;
+    line-height: 1.8;
+    font-size: 1rem;
+}
+
+.grand-total-line {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #0d2c47;
+}
+
+.grand-total-line span {
+    color: #f1b813;
+}
+
+#result {
+    margin-top: 30px;
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    color: var(--secondary);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .1);
+}
+
+/* ==========================================================================
+   7. CONTACT US & SYSTEM USER REGISTRATION ARCHITECTURE
+   ========================================================================== */
+.contact-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+}
+
+#contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#contact-form input,
+#contact-form select,
+#contact-form textarea {
+    width: 100%;
+    padding: 14px 18px;
+    font-size: 0.95rem;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    background-color: #f8fafc;
+    color: #0d2c47;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#contact-form select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230d2c47' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+    background-size: 14px;
+}
+
+#contact-form textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+#contact-form input:focus,
+#contact-form select:focus,
+#contact-form textarea:focus {
+    border-color: #f1b813;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(241, 184, 19, 0.15);
+}
+
+.contact-info {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.error-msg {
+    display: none;
+    color: #ef4444;
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 6px;
+    padding-left: 4px;
+    animation: fadeInError 0.25s ease-in-out;
+}
+
+@keyframes fadeInError {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.submit-btn {
+    width: 100%;
+    background: #0d2c47;
+    color: #ffffff;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+}
+
+.submit-btn:hover {
+    background: #f1b813;
+    color: #0d2c47;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(241, 184, 19, 0.25);
+}
+
+/* ==========================================================================
+   8. FIXED ACTION CONTROLS & FOOTER ARRAY
+   ========================================================================== */
+/* ==========================================================================
+   8. FIXED ACTION CONTROLS (BALANCED VERTICAL STACK)
+   ========================================================================== */
+.whatsapp-btn {
+    position: fixed;
+    right: 25px;
+    /* Aligned perfectly to the right border edge */
+    bottom: 25px;
+    /* Stays at the absolute bottom */
+    width: 55px;
+    height: 55px;
+    background: #25D366;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8rem;
+    z-index: 999;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+}
+
+#topBtn {
+    position: fixed;
+    right: 25px;
+    /* Must match the WhatsApp button's right spacing exactly */
+    bottom: 95px;
+    /* Positioned exactly above the WhatsApp button (25px + 55px + 15px gap) */
+    width: 55px;
+    /* Uniform width with WhatsApp button */
+    height: 55px;
+    /* Uniform height with WhatsApp button */
+    border: none;
+    background: var(--primary);
+    color: #023047;
+    /* High contrast icon color matching your brand */
+    border-radius: 50%;
+    cursor: pointer;
+    display: none;
+    /* Controlled dynamically via JS scroll behavior */
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    z-index: 999;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Add a clean hover interaction effect to both elements */
+.whatsapp-btn:hover,
+#topBtn:hover {
+    transform: scale(1.08);
+}
+.pdf-btn {
+    background-color: #ef4444;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 5px;
+    font-weight: 600;
+}
+
+.img-btn {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.pdf-btn:hover,
+.img-btn:hover {
+    opacity: 0.9;
+}
+
+footer {
+    background: var(--secondary);
+    color: white;
+    padding: 60px 8%;
+    width: 100%;
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+}
+
+.footer-container ul {
+    list-style: none;
+}
+
+.footer-container li {
+    margin: 10px 0;
+}
+
+.footer-container i {
+    margin-right: 15px;
+    font-size: 1.3rem;
+}
+
+.copyright {
+    text-align: center;
+    margin-top: 40px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 20px;
+}
+
+.faq p {
+    margin-top: 15px;
+}
+
+/* ==========================================================================
+   9. DARK MODE THEME RE-MAPPING
+   ========================================================================== */
+.dark-mode .product-card,
+.dark-mode .service-card,
+.dark-mode .feature-card,
+.dark-mode .testimonial,
+.dark-mode .contact-info,
+.dark-mode .contact-container {
+    background: #1e293b;
+    color: white;
+}
+
+.dark-mode #contact-form input,
+.dark-mode #contact-form select,
+.dark-mode #contact-form textarea {
+    background-color: #0f172a;
+    border-color: #334155;
+    color: #f8fafc;
+}
+
+.dark-mode #calculator,
+.dark-mode .partners {
+    background-color: #0f172a;
+}
+
+.dark-mode .calculator-container,
+.dark-mode .invoice-container {
+    background-color: #1e293b;
+    border-color: #334155;
+    color: #ffffff;
+}
+
+.dark-mode .calculator-container h2,
+.dark-mode .invoice-container h4,
+.dark-mode .grand-total-line {
+    color: #ffffff;
+}
+
+.dark-mode .invoice-table th {
+    background-color: #0f172a;
+    color: #cbd5e1;
+}
+
+.dark-mode .invoice-table td {
+    border-bottom-color: #334155;
+}
+
+/* ==========================================================================
+   10. UNIVERSAL RESPONSIVE MEDIA QUERIES (TABLETS & SMARTPHONES)
+   ========================================================================== */
+
+/* --- TABLET ENGINE ADAPTATIONS (MAX-WIDTH: 992px) --- */
+@media screen and (max-width: 992px) {
+    section {
+        padding: 60px 5%;
+    }
+
+    .about-container,
+    .contact-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .navbar {
+        padding: 18px 5%;
+    }
+}
+
+/* --- MOBILE NAVIGATION BAR BREAKOUT (MAX-WIDTH: 768px) --- */
+@media screen and (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    /* Handled globally by your JS menu toggle logic */
+    .hamburger {
+        display: block;
+    }
+
+    .hero h1 {
+        padding-top: 40px;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+/* --- ULTRA-FLUID INVOICE SCREEN ADAPTATION PANEL (MAX-WIDTH: 600px) --- */
+@media screen and (max-width: 600px) {
+
+    /* Prevent the invoice preview container card from sliding off the screen edge */
+    #calc-result,
+    .invoice-container {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px !important;
+        box-sizing: border-box !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Lock down the core rendering structure of the HTML table framework */
+    #calc-result table,
+    .invoice-table {
+        width: 100% !important;
+        table-layout: fixed !important;
+        /* Force browser to respect strict pixel budgets */
+        border-collapse: collapse !important;
+    }
+
+    /* Shrink fonts slightly and prevent horizontal overflows */
+    #calc-result th,
+    #calc-result td,
+    .invoice-table th,
+    .invoice-table td {
+        padding: 8px 4px !important;
+        font-size: 11px !important;
+        /* Shrinks row strings perfectly to fit phone containers */
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        vertical-align: middle !important;
+    }
+
+    /* Strict Column Space Budgeting: Prevents layout collisions and text overlapping */
+    #calc-result th:nth-child(1),
+    #calc-result td:nth-child(1) {
+        width: 44%;
+        text-align: left;
+    }
+
+    /* Item Description */
+    #calc-result th:nth-child(2),
+    #calc-result td:nth-child(2) {
+        width: 12%;
+        text-align: center;
+    }
+
+    /* Qty */
+    #calc-result th:nth-child(3),
+    #calc-result td:nth-child(3) {
+        width: 22%;
+        text-align: right;
+    }
+
+    /* Unit Price */
+    #calc-result th:nth-child(4),
+    #calc-result td:nth-child(4) {
+        width: 22%;
+        text-align: right;
+    }
+
+    /* Total Column */
+
+    .invoice-total-summary {
+        text-align: right;
+        font-size: 0.9rem;
+    }
+
+    .grand-total-line {
+        font-size: 1.1rem;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .calculator-container {
+        padding: 20px 15px;
+    }
+}
+
+/* ==========================================================================
+   11. PRINT AUTOMATION STYLESHEET
+   ========================================================================== */
+@media print {
+
+    .navbar,
+    .hamburger,
+    .nav-links,
+    .theme-toggle,
+    .download-actions,
+    #topBtn,
+    .whatsapp-btn,
+    #contact-form,
+    .filter-btn,
+    .action-btn,
+    .pdf-btn,
+    .img-btn {
+        display: none !important;
+    }
+
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+    }
+
+    #calc-result {
+        display: block !important;
+        opacity: 1 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+    }
+
+    th,
+    td {
+        border-bottom: 1px solid #cbd5e1 !important;
+        color: #000000 !important;
+    }
+}

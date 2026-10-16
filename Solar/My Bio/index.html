@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Daniel Akinbola — Digital interface architect and frontend developer." />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Daniel Akinbola | Digital Interface Architect</title>
+
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --panel: rgba(18, 24, 32, .72);
+            --line: rgba(148, 163, 184, .12);
+            --muted: #9aa6b2;
+            --accent: #72f0c5;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: var(--bg);
+        }
+
+        .noise {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: .055;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+        }
+
+        .aurora,
+        .aurora-two {
+            position: fixed;
+            width: 52vw;
+            height: 52vw;
+            border-radius: 999px;
+            filter: blur(82px);
+            opacity: .18;
+            pointer-events: none;
+            z-index: 0;
+            animation: drift 16s ease-in-out infinite alternate;
+        }
+
+        .aurora {
+            top: -24vw;
+            left: -12vw;
+            background: #0ea5e9;
+        }
+
+        .aurora-two {
+            right: -20vw;
+            top: 22vh;
+            background: #10b981;
+            animation-delay: -6s;
+        }
+
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            background-image: linear-gradient(rgba(148, 163, 184, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, .045) 1px, transparent 1px);
+            background-size: 54px 54px;
+            mask-image: radial-gradient(circle at 50% 20%, black 0%, transparent 72%);
+        }
+
+        .glass {
+            background: var(--panel);
+            border: 1px solid var(--line);
+            backdrop-filter: blur(18px);
+        }
+
+        .hero-title {
+            letter-spacing: -.055em;
+        }
+
+        .gradient-text {
+            background: linear-gradient(110deg, #fff 0%, #d5ebe5 42%, #72f0c5 72%, #8ec5ff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: shimmer 8s linear infinite;
+        }
+
+        .eyebrow-dot {
+            box-shadow: 0 0 0 5px rgba(114, 240, 197, .08), 0 0 18px rgba(114, 240, 197, .9);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 1px;
+            background: #fff;
+            transition: width .3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .magnetic {
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+
+        .magnetic:hover {
+            box-shadow: 0 18px 45px rgba(0, 0, 0, .22);
+        }
+
+        .project-card {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(26px);
+            transition: opacity .65s ease, transform .65s cubic-bezier(.2, .8, .2, 1), border-color .35s ease, background .35s ease;
+        }
+
+        .project-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            opacity: 0;
+            background: radial-gradient(500px circle at var(--x, 50%) var(--y, 50%), rgba(114, 240, 197, .13), transparent 45%);
+            transition: opacity .35s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            border-color: rgba(114, 240, 197, .32);
+            transform: translateY(-8px) !important;
+        }
+
+        .project-card img {
+            transition: transform .7s cubic-bezier(.2, .8, .2, 1), filter .7s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.065);
+            filter: saturate(1.08) contrast(1.04);
+        }
+
+        .project-image-placeholder {
+            background: linear-gradient(135deg, rgba(114, 240, 197, .11), rgba(142, 197, 255, .08) 48%, rgba(15, 23, 42, .95));
+        }
+
+        .filter-btn {
+            transition: transform .25s ease, background .25s ease, color .25s ease, border .25s ease;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .filter-btn.active {
+            background: #f8fafc;
+            color: #0b0f14;
+            border-color: #f8fafc;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity .7s ease, transform .7s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .reveal.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-pill {
+            animation: float 4.5s ease-in-out infinite;
+        }
+
+        .skill-pill:nth-child(2n) {
+            animation-delay: -1.4s;
+        }
+
+        .skill-pill:nth-child(3n) {
+            animation-delay: -2.4s;
+        }
+
+        .cursor-glow {
+            position: fixed;
+            width: 310px;
+            height: 310px;
+            border-radius: 999px;
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, rgba(114, 240, 197, .09) 0%, rgba(114, 240, 197, .035) 38%, transparent 70%);
+            mix-blend-mode: screen;
+            opacity: .85;
+        }
+
+        #scroll-progress {
+            transform-origin: left;
+        }
+
+        .toast {
+            transform: translateY(24px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all .35s ease;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @keyframes shimmer {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes drift {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate3d(10vw, 8vh, 0) scale(1.15);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+
+        /* Large circular profile image with a thin rotating multicolour border. */
+        .profile-avatar {
+            position: relative;
+            display: grid;
+            width: 90px;
+            height: 90px;
+            place-items: center;
+            border-radius: 9999px;
+            isolation: isolate;
+            flex: 0 0 auto;
+        }
+
+        .profile-avatar::before,
+        .profile-avatar::after {
+            content: '';
+            position: absolute;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+
+        /* Thin but highly visible rotating colour ring. */
+        .profile-avatar::before {
+            inset: -2px;
+            z-index: -3;
+            background: conic-gradient(from 0deg,
+                    #ff2d95 0deg,
+                    #ff7a18 72deg,
+                    #ffe15d 138deg,
+                    #4cffb1 205deg,
+                    #22b9ff 274deg,
+                    #9b5cff 329deg,
+                    #ff2d95 360deg);
+            animation: profile-border-spin 2.8s linear infinite;
+            box-shadow: 0 0 12px rgba(255, 72, 158, .38), 0 0 18px rgba(34, 185, 255, .22);
+        }
+
+        /* Small dark gap so the photo never blends into the animated border. */
+        .profile-avatar::after {
+            inset: 3px;
+            z-index: 0;
+            background: #0b0f14;
+        }
+
+        .profile-avatar img {
+            position: absolute;
+            inset: 7px;
+            z-index: 1;
+            display: block;
+            width: calc(100% - 14px);
+            height: calc(100% - 14px);
+            max-width: none;
+            border: 0;
+            border-radius: 9999px;
+            object-fit: cover;
+            object-position: center;
+            clip-path: circle(50% at 50% 50%);
+        }
+
+        .profile-avatar .avatar-fallback {
+            position: absolute;
+            inset: 7px;
+            z-index: 2;
+            display: grid;
+            place-items: center;
+            border-radius: 9999px;
+            background: linear-gradient(135deg, #141c28, #07090d);
+            color: #f8fafc;
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -.04em;
+        }
+
+        .profile-avatar .avatar-fallback.hidden {
+            display: none;
+        }
+
+        /* On phones the same circular image scales down without affecting the header layout. */
+        @media (max-width: 640px) {
+            .profile-avatar {
+                width: 90px;
+                height: 90px;
+            }
+
+            .profile-avatar .avatar-fallback {
+                font-size: 1.35rem;
+            }
+        }
+
+        @media (max-width: 390px) {
+            .profile-avatar {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        .mobile-menu {
+            overflow: hidden;
+            margin-top: .7rem;
+            border-radius: 1rem;
+            transform-origin: top;
+            transition: opacity .22s ease, transform .22s ease;
+        }
+
+        .mobile-menu.hidden {
+            display: none;
+        }
+
+        .mobile-menu a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 48px;
+            padding: .85rem 1rem;
+            color: #cbd5e1;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            font-size: .875rem;
+            font-weight: 600;
+        }
+
+        .mobile-menu a:last-child {
+            border-bottom: 0;
+            color: #071013;
+            background: #72f0c5;
+            justify-content: center;
+            margin: .75rem;
+            min-height: 46px;
+            border-radius: .75rem;
+        }
+
+        .menu-toggle {
+            display: inline-grid;
+            width: 42px;
+            height: 42px;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, .12);
+            border-radius: .8rem;
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, .04);
+            transition: background .2s ease, border-color .2s ease, transform .2s ease;
+        }
+
+        .menu-toggle:hover,
+        .menu-toggle[aria-expanded="true"] {
+            background: rgba(114, 240, 197, .1);
+            border-color: rgba(114, 240, 197, .48);
+        }
+
+        .menu-icon,
+        .menu-icon::before,
+        .menu-icon::after {
+            width: 18px;
+            height: 2px;
+            border-radius: 99px;
+            background: currentColor;
+            transition: transform .22s ease, opacity .22s ease;
+        }
+
+        .menu-icon {
+            position: relative;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+
+        .menu-icon::before {
+            top: -6px;
+        }
+
+        .menu-icon::after {
+            top: 6px;
+        }
+
+        .menu-toggle[aria-expanded="true"] .menu-icon {
+            background: transparent;
+        }
+
+        .menu-toggle[aria-expanded="true"] .menu-icon::before {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-toggle[aria-expanded="true"] .menu-icon::after {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        @keyframes profile-border-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @media (max-width: 767px) {
+            body {
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+
+            .aurora,
+            .aurora-two {
+                width: 78vw;
+                height: 78vw;
+                filter: blur(66px);
+                opacity: .14;
+            }
+
+            .aurora {
+                top: -30vw;
+                left: -28vw;
+            }
+
+            .aurora-two {
+                top: 48vh;
+                right: -38vw;
+            }
+
+            .grid-bg {
+                background-size: 34px 34px;
+            }
+
+            .hero-title {
+                font-size: clamp(2.8rem, 12.2vw, 4.3rem);
+                line-height: .98;
+                letter-spacing: -.065em;
+            }
+
+            .project-card:hover {
+                transform: translateY(-3px) !important;
+            }
+
+            .project-card:hover img {
+                transform: scale(1.025);
+            }
+
+            #contact .glass {
+                padding: 1.5rem;
+            }
+
+            #contact .magnetic {
+                width: 100%;
+            }
+
+            #modal-panel {
+                max-height: calc(100dvh - 2rem);
+                overflow-y: auto;
+            }
+
+            .toast {
+                width: calc(100% - 2rem);
+                text-align: center;
+                bottom: max(1rem, env(safe-area-inset-bottom));
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: .01ms !important;
+            }
+
+            .cursor-glow {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-slate-100 font-sans antialiased selection:bg-emerald-300 selection:text-slate-950">
+    <div class="noise"></div>
+    <div class="aurora"></div>
+    <div class="aurora-two"></div>
+    <div class="grid-bg"></div>
+    <div class="cursor-glow hidden md:block" id="cursor-glow"></div>
+    <div id="scroll-progress"
+        class="fixed top-0 left-0 z-[100] h-[2px] w-full scale-x-0 bg-gradient-to-r from-emerald-300 via-cyan-300 to-indigo-300">
+    </div>
+
+    <header class="relative z-10 max-w-6xl mx-auto px-5 md:px-8 pt-7">
+        <div class="glass flex items-center justify-between gap-5 rounded-2xl px-4 py-3 md:px-5">
+            <a href="#top" class="group flex min-w-0 items-center gap-3" aria-label="Go to top">
+                <!-- Replace profile-image.jpg with Daniel's actual image file or public image URL. -->
+                <div class="profile-avatar" aria-hidden="true">
+                    <img src="./image/profile.jpg" alt=""
+                        onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
+                    <span class="avatar-fallback hidden">DA</span>
+                </div>
+                <div class="hidden min-w-0 sm:block leading-tight">
+                    <p class="truncate text-sm font-semibold tracking-tight text-white">Daniel Akinbola</p>
+                    <p class="text-[11px] font-mono uppercase tracking-[.16em] text-slate-500">Interface Architect</p>
+                </div>
+            </a>
+
+            <nav class="hidden items-center gap-6 text-xs text-slate-400 md:flex">
+                <a class="nav-link" href="#work">Work</a>
+                <a class="nav-link" href="#about">About</a>
+                <a class="nav-link" href="#contact">Contact</a>
+            </nav>
+
+            <a href="#contact"
+                class="magnetic hidden rounded-xl border border-white/10 bg-white px-4 py-2 text-xs font-semibold text-slate-950 hover:bg-emerald-200 md:inline-flex">Let’s
+                work together</a>
+
+            <button id="mobile-menu-toggle" class="menu-toggle md:hidden" type="button"
+                aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+                <span class="menu-icon"></span>
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="mobile-menu glass hidden md:hidden" aria-label="Mobile navigation">
+            <a href="#work"><span>Work</span><span aria-hidden="true">↘</span></a>
+            <a href="#about"><span>About</span><span aria-hidden="true">↘</span></a>
+            <a href="#contact"><span>Contact</span><span aria-hidden="true">↘</span></a>
+            <a href="#contact">Let’s work together</a>
+        </nav>
+    </header>
+
+    <main id="top" class="relative z-10 max-w-6xl mx-auto px-5 md:px-8">
+        <section class="grid min-h-[76vh] items-center gap-10 py-20 md:grid-cols-[1.4fr_.6fr] md:py-28">
+            <div class="reveal">
+                <div
+                    class="mb-6 flex items-center gap-3 text-xs font-mono uppercase tracking-[.18em] text-emerald-200/90">
+                    <span class="eyebrow-dot h-2 w-2 rounded-full bg-emerald-300"></span>
+                    Available for select projects
+                </div>
+                <h1
+                    class="hero-title max-w-4xl text-5xl font-semibold leading-[.96] sm:text-6xl md:text-7xl lg:text-8xl">
+                    I design digital products that feel <span class="gradient-text">clear, alive, and easy to
+                        use.</span>
+                </h1>
+                <p class="mt-7 max-w-2xl text-base leading-8 text-slate-400 md:text-lg">
+                    I am Daniel Akinbola, a digital interface architect focused on responsive websites, product
+                    interfaces, dashboards, and practical web experiences. I turn complex ideas into polished user
+                    journeys that help businesses communicate, convert, and operate better.
+                </p>
+                <div class="mt-9 flex flex-wrap gap-3">
+                    <a href="#work"
+                        class="magnetic rounded-xl bg-emerald-300 px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-200">Explore
+                        selected work <span class="ml-1">↓</span></a>
+                    <button id="copy-email-btn"
+                        class="magnetic rounded-xl border border-white/10 bg-white/[.04] px-5 py-3 text-sm font-medium text-white hover:border-emerald-300/50 hover:bg-white/[.08]">Copy
+                        email address</button>
+                </div>
+            </div>
+
+            <aside class="reveal glass rounded-3xl p-5 md:p-6" style="transition-delay: 120ms">
+                <div class="flex items-center justify-between border-b border-white/10 pb-4">
+                    <span class="text-xs font-mono uppercase tracking-[.16em] text-slate-500">Currently</span>
+                    <span id="local-time" class="text-xs font-mono text-emerald-200">00:00:00 WAT</span>
+                </div>
+                <div class="mt-7 space-y-5">
+                    <div>
+                        <p class="text-sm text-slate-500">Focus</p>
+                        <p class="mt-1 text-lg font-medium text-white">Interface design + frontend execution</p>
+                    </div>
+                    <div>
+                        <p class="text-sm text-slate-500">Best suited for</p>
+                        <p class="mt-1 text-sm leading-6 text-slate-300">Product landing pages, admin dashboards,
+                            service businesses, educational systems, and interactive tools.</p>
+                    </div>
+                    <div class="rounded-2xl border border-emerald-300/10 bg-emerald-300/[.045] p-4">
+                        <p class="text-[11px] font-mono uppercase tracking-[.15em] text-emerald-200">Quick note</p>
+                        <p class="mt-2 text-sm leading-6 text-slate-300">Every interface is built to look credible, work
+                            smoothly, and remain easy to maintain.</p>
+                    </div>
+                </div>
+            </aside>
+        </section>
+
+        <section id="about" class="reveal border-y border-white/10 py-10 md:py-12">
+            <div class="grid gap-8 md:grid-cols-[.75fr_1.25fr] md:items-start">
+                <div>
+                    <p class="text-xs font-mono uppercase tracking-[.18em] text-emerald-200">What I bring</p>
+                    <h2 class="mt-3 text-3xl font-semibold tracking-tight text-white">A sharper product presence.</h2>
+                </div>
+                <div>
+                    <p class="max-w-2xl text-base leading-8 text-slate-400">I blend visual hierarchy, interaction
+                        design, responsive implementation, and business context. The outcome is not only a page that
+                        looks good—it is an interface people can understand quickly and enjoy using.</p>
+                    <div class="mt-7 flex flex-wrap gap-2.5">
+                        <span
+                            class="skill-pill rounded-full border border-white/10 bg-white/[.035] px-3 py-1.5 text-xs text-slate-300">Responsive
+                            UI</span>
+                        <span
+                            class="skill-pill rounded-full border border-white/10 bg-white/[.035] px-3 py-1.5 text-xs text-slate-300">Product
+                            dashboards</span>
+                        <span
+                            class="skill-pill rounded-full border border-white/10 bg-white/[.035] px-3 py-1.5 text-xs text-slate-300">Landing
+                            pages</span>
+                        <span
+                            class="skill-pill rounded-full border border-white/10 bg-white/[.035] px-3 py-1.5 text-xs text-slate-300">Interactive
+                            tools</span>
+                        <span
+                            class="skill-pill rounded-full border border-white/10 bg-white/[.035] px-3 py-1.5 text-xs text-slate-300">Design
+                            systems</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="work" class="py-20 md:py-28">
+            <div class="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end">
+                <div>
+                    <p class="text-xs font-mono uppercase tracking-[.18em] text-emerald-200">Selected work</p>
+                    <h2 class="mt-3 text-4xl font-semibold tracking-tight text-white md:text-5xl">Built for real use,
+                        not just display.</h2>
+                    <p class="mt-4 max-w-2xl text-slate-400"> Use the filters to browse the type of work.</p>
+                </div>
+                <span id="project-count" class="text-xs font-mono uppercase tracking-[.15em] text-slate-500"></span>
+            </div>
+
+            <div id="filters" class="reveal mt-10 flex flex-wrap gap-2" style="transition-delay: 100ms"></div>
+            <div id="projects-container" class="mt-8 grid gap-5 md:grid-cols-2"></div>
+        </section>
+
+        <section id="contact" class="reveal pb-24">
+            <div class="glass overflow-hidden rounded-3xl p-7 md:p-10">
+                <div class="relative grid gap-8 md:grid-cols-[1.2fr_.8fr] md:items-end">
+                    <div>
+                        <p class="text-xs font-mono uppercase tracking-[.18em] text-emerald-200">Start a conversation
+                        </p>
+                        <h2 class="mt-3 max-w-2xl text-4xl font-semibold tracking-tight text-white md:text-5xl">Have a
+                            digital product or business interface to build?</h2>
+                        <p class="mt-5 max-w-xl text-slate-400 leading-7">Share the context, goal, and timeline. I will
+                            help shape the most practical route from idea to a finished, responsive experience.</p>
+                    </div>
+                    <div class="flex flex-col gap-3 md:items-end">
+                        <a id="email-link"
+                            href="mailto:akinboladaniel21@gmail.com?subject=Project%20Inquiry%20for%20Daniel%20Akinbola"
+                            class="magnetic inline-flex w-full items-center justify-center rounded-xl bg-white px-5 py-3.5 text-sm font-semibold text-slate-950 hover:bg-emerald-200 md:w-auto">Send
+                            an email <span class="ml-2">↗</span></a>
+                        <button id="open-contact-modal"
+                            class="text-sm text-slate-400 transition hover:text-white">Prefer to copy the contact
+                            details?</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="contact-modal"
+        class="fixed inset-0 z-[110] hidden items-center justify-center bg-slate-950/80 p-5 backdrop-blur-sm">
+        <div id="modal-panel" class="glass w-full max-w-md scale-95 rounded-3xl p-6 opacity-0 transition duration-300">
+            <div class="flex items-start justify-between gap-4">
+                <div>
+                    <p class="text-xs font-mono uppercase tracking-[.16em] text-emerald-200">Contact details</p>
+                    <h3 class="mt-2 text-xl font-semibold text-white">Let’s build something useful.</h3>
+                </div>
+                <button id="close-contact-modal"
+                    class="grid h-9 w-9 place-items-center rounded-lg border border-white/10 text-slate-400 transition hover:border-white/25 hover:text-white"
+                    aria-label="Close modal">×</button>
+            </div>
+            <div class="mt-6 rounded-2xl border border-white/10 bg-black/20 p-4">
+                <p class="text-xs text-slate-500">Email</p>
+                <p id="target-email" class="mt-1 break-all font-mono text-sm text-emerald-200">
+                    akinboladaniel21@gmail.com</p>
+            </div>
+            <div class="mt-5 flex gap-3">
+                <button id="modal-copy-email"
+                    class="magnetic flex-1 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-slate-950 hover:bg-emerald-200">Copy
+                    email</button>
+                <a href="mailto:akinboladaniel21@gmail.com"
+                    class="magnetic flex-1 rounded-xl border border-white/10 px-4 py-3 text-center text-sm font-medium text-white hover:border-emerald-300/50">Open
+                    mail app</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast"
+        class="toast fixed bottom-5 left-1/2 z-[120] -translate-x-1/2 rounded-xl border border-emerald-300/20 bg-slate-900 px-4 py-3 text-sm text-emerald-100 shadow-2xl">
+        Email copied to clipboard.</div>
+
+    <script>
+        /* ================================================================
+           PORTFOLIO CONTENT SETTINGS
+           Update your name, email, bio, or social links here if needed.
+           ================================================================ */
+        const PROFILE = {
+            
+            email: 'akinboladaniel21@gmail.com'
+        };
+
+        /* ================================================================
+           RECENT WORKS — ADD OR EDIT YOUR PROJECTS HERE
+    
+           To add a project, copy one object and change the values:
+           {
+             title: 'Project name',
+             category: 'utilities', // utilities | ecommerce | edu | lifestyle | saas | other
+             label: 'Live product / Case study / Concept build',
+             description: 'Write 1–2 clear sentences about what you built and why it matters.',
+             url: 'https://your-live-project-link.com',
+             image: 'images/your-project-image.jpg', // place image in your project folder
+             accent: 'emerald' // emerald | sky | violet | amber | rose
+           }
+    
+           Tip: If you do not have an image yet, leave image: '' and the elegant
+           placeholder visual will automatically appear.
+           ================================================================ */
+        const PROJECTS = [
+            {
+                title: 'Solar Load Calculator',
+                category: 'utilities',
+                label: 'Live interactive app',
+                description: 'A calculation tool that helps users work through multi-variable solar requirements, validate inputs, and generate clearer project outputs.',
+                url: 'https://michbams-project.vercel.app',
+                image: 'solar-project.jpg',
+                accent: 'emerald'
+            },
+            {
+                title: 'Institutional Management Hub',
+                category: 'edu',
+                label: 'Live management portal',
+                description: 'A structured school administration experience for exploring student information, academic records, and essential operational metrics.',
+                url: 'https://school-six-pied-45.vercel.app',
+                image: 'school-project.jpg',
+                accent: 'violet'
+            },
+            {
+                title: 'Luxury Grooming Studio',
+                category: 'lifestyle',
+                label: 'Live business page',
+                description: 'A premium booking-focused website for a modern grooming studio, designed to present services clearly and guide visitors toward appointments.',
+                url: 'https://nimi-omega.vercel.app',
+                image: 'barber-project.jpg',
+                accent: 'amber'
+            },
+            {
+                title: 'The Daily Crumb Bakery',
+                category: 'lifestyle',
+                label: 'Live business page',
+                description: 'A welcoming neighborhood bakery crafting fresh breads, cakes, pastries, and celebration treats daily. We combine quality ingredients, skilled baking, and friendly service to make every visit delicious and memorable always.',
+                url: 'https://yumheal-1.vercel.app',
+                image: 'bakery-project.jpg',
+                accent: 'amber'
+            },
+
+
+            /* ===================== RECENT WORKS — ADD HERE =====================
+            {
+              title: 'Your newest project',
+              category: 'saas',
+              label: 'Product dashboard',
+              description: 'Describe your role, the business problem, and the experience you created.',
+              url: 'https://your-link.com',
+              image: 'images/new-project.jpg',
+              accent: 'sky'
+            },
+            ===================================================================== */
+        ];
+
+        const CATEGORY_LABELS = {
+            all: 'All work',
+            utilities: 'Interactive tools',
+            ecommerce: 'E-commerce',
+            edu: 'Education systems',
+            lifestyle: 'Lifestyle',
+            saas: 'SaaS & dashboards',
+            other: 'Other work'
+        };
+
+        const accentStyles = {
+            emerald: { text: 'text-emerald-200', badge: 'border-emerald-300/20 bg-emerald-300/[.08] text-emerald-200', wash: 'from-emerald-300/20 via-emerald-300/5 to-transparent' },
+            sky: { text: 'text-sky-200', badge: 'border-sky-300/20 bg-sky-300/[.08] text-sky-200', wash: 'from-sky-300/20 via-sky-300/5 to-transparent' },
+            violet: { text: 'text-violet-200', badge: 'border-violet-300/20 bg-violet-300/[.08] text-violet-200', wash: 'from-violet-300/20 via-violet-300/5 to-transparent' },
+            amber: { text: 'text-amber-200', badge: 'border-amber-300/20 bg-amber-300/[.08] text-amber-200', wash: 'from-amber-300/20 via-amber-300/5 to-transparent' },
+            rose: { text: 'text-rose-200', badge: 'border-rose-300/20 bg-rose-300/[.08] text-rose-200', wash: 'from-rose-300/20 via-rose-300/5 to-transparent' }
+        };
+
+        let activeCategory = 'all';
+        const projectsContainer = document.getElementById('projects-container');
+        const filters = document.getElementById('filters');
+        const projectCount = document.getElementById('project-count');
+
+        function availableCategories() {
+            const used = new Set(PROJECTS.map(project => project.category));
+            return ['all', ...Object.keys(CATEGORY_LABELS).filter(category => category !== 'all' && used.has(category))];
+        }
+
+        function createFilters() {
+            filters.innerHTML = availableCategories().map(category => `
+        <button class="filter-btn rounded-xl border border-white/10 bg-white/[.035] px-4 py-2.5 text-xs font-mono uppercase tracking-[.12em] text-slate-400 hover:text-white ${category === activeCategory ? 'active' : ''}" data-filter="${category}">
+          ${CATEGORY_LABELS[category]}
+        </button>
+      `).join('');
+
+            filters.querySelectorAll('[data-filter]').forEach(button => {
+                button.addEventListener('click', () => {
+                    activeCategory = button.dataset.filter;
+                    createFilters();
+                    renderProjects();
+                });
+            });
+        }
+
+        function renderProjects() {
+            const shownProjects = PROJECTS.filter(project => activeCategory === 'all' || project.category === activeCategory);
+            projectCount.textContent = `${shownProjects.length.toString().padStart(2, '0')} project${shownProjects.length === 1 ? '' : 's'} shown`;
+
+            projectsContainer.innerHTML = shownProjects.map((project, index) => {
+                const accent = accentStyles[project.accent] || accentStyles.emerald;
+                const visual = project.image
+                    ? `<img src="${project.image}" alt="${project.title} preview" class="h-full w-full object-cover" onerror="this.remove(); this.parentElement.querySelector('.project-image-placeholder').classList.remove('hidden')">`
+                    : '';
+
+                return `
+          <a class="project-card glass group rounded-3xl p-4 md:p-5" href="${project.url || '#'}" ${project.url ? 'target="_blank" rel="noreferrer"' : ''} data-index="${index}">
+            <div class="relative aspect-[16/10] overflow-hidden rounded-2xl border border-white/10 bg-slate-950">
+              ${visual}
+              <div class="project-image-placeholder ${project.image ? 'hidden' : ''} absolute inset-0 grid place-items-center bg-gradient-to-br ${accent.wash}">
+                <div class="text-center">
+                  <p class="text-xs font-mono uppercase tracking-[.16em] text-slate-500">Project preview</p>
+                  <p class="mt-2 text-sm text-slate-400">Add an image path in the project object</p>
+                </div>
+              </div>
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-950/55 via-transparent to-transparent"></div>
+              <span class="absolute right-3 top-3 grid h-9 w-9 place-items-center rounded-xl border border-white/15 bg-slate-950/65 text-sm text-white backdrop-blur transition duration-300 group-hover:rotate-45">↗</span>
+            </div>
+            <div class="px-1 pb-1 pt-5">
+              <span class="inline-flex rounded-lg border px-2.5 py-1 text-[10px] font-mono uppercase tracking-[.14em] ${accent.badge}">${project.label}</span>
+              <h3 class="mt-4 text-2xl font-medium tracking-tight text-white transition-colors duration-300 group-hover:${accent.text}">${project.title}</h3>
+              <p class="mt-3 text-sm leading-6 text-slate-400">${project.description}</p>
+              <div class="mt-5 flex items-center gap-2 text-xs font-medium ${accent.text}">
+                View project <span class="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </div>
+            </div>
+          </a>
+        `;
+            }).join('');
+
+            requestAnimationFrame(() => {
+                document.querySelectorAll('.project-card').forEach((card, index) => {
+                    setTimeout(() => card.classList.add('visible'), index * 85);
+                    card.addEventListener('mousemove', event => {
+                        const rect = card.getBoundingClientRect();
+                        card.style.setProperty('--x', `${event.clientX - rect.left}px`);
+                        card.style.setProperty('--y', `${event.clientY - rect.top}px`);
+                    });
+                });
+            });
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const formatter = new Intl.DateTimeFormat('en-GB', {
+                timeZone: 'Africa/Lagos', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+            });
+            document.getElementById('local-time').textContent = `${formatter.format(now)} WAT`;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => toast.classList.remove('show'), 2200);
+        }
+
+        async function copyEmail() {
+            try {
+                await navigator.clipboard.writeText(PROFILE.email);
+                showToast('Email copied to clipboard.');
+            } catch (error) {
+                showToast(`Copy this email: ${PROFILE.email}`);
+            }
+        }
+
+        function openModal() {
+            const modal = document.getElementById('contact-modal');
+            const panel = document.getElementById('modal-panel');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            requestAnimationFrame(() => {
+                panel.classList.remove('scale-95', 'opacity-0');
+            });
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('contact-modal');
+            const panel = document.getElementById('modal-panel');
+            panel.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => { modal.classList.add('hidden'); modal.classList.remove('flex'); }, 250);
+        }
+
+        function closeMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const toggle = document.getElementById('mobile-menu-toggle');
+            if (!menu || !toggle) return;
+            menu.classList.add('hidden');
+            toggle.setAttribute('aria-expanded', 'false');
+            toggle.setAttribute('aria-label', 'Open navigation menu');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const toggle = document.getElementById('mobile-menu-toggle');
+            const opening = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', !opening);
+            toggle.setAttribute('aria-expanded', String(opening));
+            toggle.setAttribute('aria-label', opening ? 'Close navigation menu' : 'Open navigation menu');
+        }
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+        }, { threshold: 0.16 });
+        document.querySelectorAll('.reveal').forEach(element => observer.observe(element));
+
+        document.addEventListener('mousemove', event => {
+            const glow = document.getElementById('cursor-glow');
+            glow.style.left = `${event.clientX}px`;
+            glow.style.top = `${event.clientY}px`;
+        });
+
+        window.addEventListener('scroll', () => {
+            const max = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = max > 0 ? window.scrollY / max : 0;
+            document.getElementById('scroll-progress').style.transform = `scaleX(${progress})`;
+        }, { passive: true });
+
+        document.getElementById('mobile-menu-toggle').addEventListener('click', toggleMobileMenu);
+        document.querySelectorAll('#mobile-menu a').forEach(link => link.addEventListener('click', closeMobileMenu));
+        window.addEventListener('resize', () => { if (window.innerWidth >= 768) closeMobileMenu(); });
+
+        document.getElementById('copy-email-btn').addEventListener('click', copyEmail);
+        document.getElementById('modal-copy-email').addEventListener('click', copyEmail);
+        document.getElementById('open-contact-modal').addEventListener('click', openModal);
+        document.getElementById('close-contact-modal').addEventListener('click', closeModal);
+        document.getElementById('contact-modal').addEventListener('click', event => { if (event.target.id === 'contact-modal') closeModal(); });
+        document.addEventListener('keydown', event => { if (event.key === 'Escape') { closeModal(); closeMobileMenu(); } });
+
+        document.getElementById('email-link').href = `mailto:${PROFILE.email}?subject=${encodeURIComponent('Project Inquiry for Daniel Akinbola')}`;
+        document.getElementById('target-email').textContent = PROFILE.email;
+
+        createFilters();
+        renderProjects();
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+
+</html>

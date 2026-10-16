@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Welding & Fabrication</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">K-E-E<span>WELDING</span></div>
+        <ul class="nav-links">
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Our Work</a></li>
+            <li><a href="#estimator">Cost Calculator</a></li>
+            <li><a href="#contact" class="btn-nav">Get a Quote</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Precision Welding & Custom Fabrication</h1>
+            <p>From heavy industrial structural steel to delicate custom metalwork. Built to last, engineered to
+                perfection.</p>
+            <div class="hero-buttons">
+                <a href="#estimator" class="btn-primary">Estimate Project Cost</a>
+                <a href="#contact" class="btn-secondary">Contact Specialist</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="services" class="services">
+        <h2 class="section-title">What We Do</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-industry"></i>
+                <h3>Structural Welding</h3>
+                <p>Heavy-duty steel beams, rigging, and structural frameworks for commercial buildings.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-car"></i>
+                <h3>Custom Fabrication</h3>
+                <p>Tailor-made automotive parts, railings, gates, and unique architectural metal designs.</p>
+            </div>
+            <div class="service-card">
+                <i class="fa-solid fa-wrench"></i>
+                <h3>Repair & Maintenance</h3>
+                <p>On-site or in-shop fixes for cracked machinery, heavy equipment, and broken hardware.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery-section">
+        <h2 class="section-title">See the Quality</h2>
+        <p class="section-subtitle">Drag the slider to see our repair transformation</p>
+
+        <div class="slider-container">
+            <div class="img background-img"></div>
+            <div class="img foreground-img"></div>
+            <input type="range" min="1" max="100" value="50" class="slider" id="before-after-slider">
+            <div class="slider-button"></div>
+        </div>
+    </section>
+
+    <section id="estimator" class="estimator-section">
+        <div class="estimator-container">
+            <h2>Instant Project Estimator</h2>
+            <p>Select your requirements below for a quick, rough baseline quote.</p>
+
+            <form id="calc-form">
+                <div class="form-group">
+                    <label for="service-type">Service Type</label>
+                    <select id="service-type">
+                        <option value="150">Custom Metal Fabrication ($150/hr)</option>
+                        <option value="200">Structural Steel Welding ($200/hr)</option>
+                        <option value="120">General Repair Work ($120/hr)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="project-size">Estimated Hours Required: <span id="hours-val">5</span> hrs</label>
+                    <input type="range" id="project-size" min="1" max="40" value="5">
+                </div>
+
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="mobile-service" value="100">
+                    <label for="mobile-service">Require On-Site / Mobile Welding Unit (+$100)</label>
+                </div>
+                <div class="result-display">
+                    <h3>Estimated Total:</h3>
+                    <p id="total-price">$0.00</p>
+                    <small>*Final quote subject to blueprint review and material costs.</small>
+                </div>
+                </form>
+                </div>
+                </section>
+                
+                <section id="contact" class="contact-section">
+                    <h2 class="section-title">Let's Get To Work</h2>
+                    <div class="contact-container">
+                        <form id="contact-form" class="main-form">
+                            <div class="form-row">
+                                <input type="text" placeholder="Your Name" required>
+                                <input type="email" placeholder="Email Address" required>
+                            </div>
+                            <input type="text" placeholder="Project Subject (e.g., Iron Gate Repair)">
+                            <textarea rows="6" placeholder="Describe your project specs, dimensions, or timeline..."
+                                required></textarea>
+                            <button type="submit" class="btn-primary">Submit Quote Request</button>
+                        </form>
+                    </div>
+                </section>
+                
+                <footer>
+                    <p>&copy; 2026 Apex Welding & Fabrication. All rights reserved.</p>
+                </footer>
+                
+                <script src="script.js"></script>
+                </body>
+                
+                </html>

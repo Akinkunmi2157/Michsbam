@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRISPDAL AUTOHUB | Immersive Scroll</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Space+Grotesk:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #04060a;
+        }
+
+        .heading-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="text-white selection:bg-teal-500 selection:text-black antialiased">
+
+    <header
+        class="fixed top-0 left-0 w-full px-8 py-6 flex justify-between items-center z-50 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
+        <div class="heading-font text-2xl font-black tracking-widest text-teal-400">CRISPDAL</div>
+        <div
+            class="text-[10px] tracking-widest uppercase text-slate-400 font-bold border border-slate-800 px-3 py-1 rounded bg-black/40">
+            Scroll Down To Explode Component Matrix
+        </div>
+    </header>
+
+    <section class="relative h-[200vh] w-full" id="pin-stage">
+
+        <div class="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden">
+
+            <div class="absolute w-[70vw] h-[70vw] bg-teal-500/5 rounded-full blur-[140px] pointer-events-none"></div>
+
+            <div id="hero-text" class="text-center mb-8 z-30 transition-transform">
+                <h1 class="heading-font text-4xl md:text-7xl font-black tracking-tighter uppercase">
+                    CRISPDAL <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-500">AUTOHUB</span>
+                </h1>
+                <p class="text-slate-400 text-xs tracking-widest uppercase mt-3">Luxury • Performance • Excellence</p>
+            </div>
+
+            <div class="relative w-full max-w-4xl h-[400px] flex items-center justify-center z-20">
+
+                <img id="layer-chassis"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Tesla_Model_S_Chassis_Logos.png/800px-Tesla_Model_S_Chassis_Logos.png"
+                    class="absolute w-[80%] max-w-xl object-contain opacity-40 mix-blend-screen pointer-events-none"
+                    alt="Chassis Layer">
+
+                <img id="layer-engine"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Electric_car_chassis_with_battery_pack_and_drive_units.png/800px-Electric_car_chassis_with_battery_pack_and_drive_units.png"
+                    class="absolute w-[65%] max-w-md object-contain opacity-30 mix-blend-screen pointer-events-none"
+                    alt="Engine Layer">
+
+                <img id="layer-shell"
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Tesla_Model_S_White_Front_View.png/800px-Tesla_Model_S_White_Front_View.png"
+                    class="absolute w-[75%] max-w-lg object-contain filter drop-shadow-[0_20px_50px_rgba(20,184,166,0.2)] pointer-events-none"
+                    alt="Body Shell">
+
+            </div>
+
+        </div>
+    </section>
+
+    <section
+        class="relative min-h-screen bg-gradient-to-b from-black to-slate-950 px-8 py-24 z-30 border-t border-slate-900/80">
+        <div class="max-w-6xl mx-auto">
+            <p class="text-teal-400 text-xs font-bold tracking-widest uppercase mb-2">Curated Showroom</p>
+            <h2 class="heading-font text-3xl md:text-5xl font-black tracking-tight mb-12">FEATURED INVENTORY</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div
+                    class="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 hover:border-teal-500/30 transition duration-300">
+                    <div class="h-48 bg-black/60 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Tesla_Model_S_White_Front_View.png/400px-Tesla_Model_S_White_Front_View.png"
+                            class="w-4/5 object-contain" />
+                    </div>
+                    <h3 class="heading-font font-bold text-lg">Hyper Variant Alpha</h3>
+                    <p class="text-slate-500 text-xs mt-1">Starting from $142,000</p>
+                </div>
+                <div
+                    class="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 hover:border-teal-500/30 transition duration-300">
+                    <div class="h-48 bg-black/60 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Tesla_Model_S_White_Front_View.png/400px-Tesla_Model_S_White_Front_View.png"
+                            class="w-4/5 object-contain hue-rotate-90" />
+                    </div>
+                    <h3 class="heading-font font-bold text-lg">Hyper Variant Beta</h3>
+                    <p class="text-slate-500 text-xs mt-1">Starting from $165,000</p>
+                </div>
+                <div
+                    class="bg-slate-900/40 p-6 rounded-2xl border border-slate-800 hover:border-teal-500/30 transition duration-300">
+                    <div class="h-48 bg-black/60 rounded-xl mb-4 overflow-hidden flex items-center justify-center">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Tesla_Model_S_White_Front_View.png/400px-Tesla_Model_S_White_Front_View.png"
+                            class="w-4/5 object-contain invert" />
+                    </div>
+                    <h3 class="heading-font font-bold text-lg">Stealth Edition Matrix</h3>
+                    <p class="text-slate-500 text-xs mt-1">Starting from $189,000</p>
+                </div>
+            </div>
+            </div>
+            </section>
+            
+            <script>
+                // Register the plugin with the core library
+                gsap.registerPlugin(ScrollTrigger);
+
+                // Bind the animations to the page scroll distance
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: "#pin-stage",
+                        start: "top top",
+                        end: "bottom bottom",
+                        scrub: 1, // Smoothly ties the movement to the mouse wheel position
+                    }
+                });
+
+                // Build the exploded view transformation timeline
+                tl.to("#layer-shell", { y: -160, scale: 1.1, opacity: 0.8 }, 0)
+                    .to("#layer-engine", { y: 20, x: 50, scale: 0.95, opacity: 0.7 }, 0)
+                    .to("#layer-chassis", { y: 150, scale: 0.85, opacity: 0.15 }, 0)
+                    .to("#hero-text", { y: -50, opacity: 0.3 }, 0);
+            </script>
+            </body>
+            
+            </html>
